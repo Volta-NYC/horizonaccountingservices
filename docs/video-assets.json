@@ -1,0 +1,64 @@
+{
+  "source": "public/media/kling_20261003_VIDEO_A_single_u_1223_0.mp4",
+  "source_sha256": "f297e20e225918773e1752bbc8c40b76124e76a75a9ec70851d8aaa50be653be",
+  "crop": {
+    "width": 1760,
+    "height": 990,
+    "x": 78,
+    "y": 0
+  },
+  "outputs": [
+    {
+      "file": "public/media/horizon-scroll-desktop.mp4",
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "width": 1280,
+            "height": 720,
+            "r_frame_rate": "24/1",
+            "nb_frames": "121"
+          }
+        ],
+        "format": {
+          "duration": "5.041667",
+          "size": "3749459"
+        }
+      },
+      "top_level_atoms": [
+        "ftyp",
+        "moov",
+        "free",
+        "mdat"
+      ]
+    },
+    {
+      "file": "public/media/horizon-scroll-mobile.mp4",
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "width": 576,
+            "height": 1024,
+            "r_frame_rate": "24/1",
+            "nb_frames": "121"
+          }
+        ],
+        "format": {
+          "duration": "5.041667",
+          "size": "1948766"
+        }
+      },
+      "top_level_atoms": [
+        "ftyp",
+        "moov",
+        "free",
+        "mdat"
+      ]
+    }
+  ]
+}

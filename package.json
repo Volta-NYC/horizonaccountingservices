@@ -1,12 +1,13 @@
 {
-  "name": "volta-base-template",
+  "name": "horizon-accounting-services",
   "version": "1.0.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "tsc --noEmit",
+    "test": "playwright test"
   },
   "dependencies": {
     "next": "latest",
@@ -14,9 +15,13 @@
     "react-dom": "latest"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.13.0",
+    "@playwright/test": "^1.63.0",
+    "@types/node": "^26.6.4",
     "@types/react": "^19.2.14",
     "autoprefixer": "^10.0.0",
     "postcss": "^8.0.0",
+    "prettier": "^3.9.9",
     "tailwindcss": "^3.0.0",
     "typescript": "^5.0.0"
   }

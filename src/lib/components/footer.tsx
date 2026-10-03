@@ -1,22 +1,27 @@
-import Link from "next/link"
-
+import { HorizonMark, Arrow } from "./icons";
 export default function Footer() {
   return (
-    <footer className="border-t mt-16">
-      <div className="max-w-6xl mx-auto px-6 py-8 text-sm text-gray-500 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-        <div className="flex flex-col gap-1">
-          <div>© {new Date().getFullYear()} Business Name</div>
-          <Link
-            href="https://www.novusnyc.org/"
-            target="_blank"
-            rel="noreferrer"
-            className="text-[#F6B78D] hover:text-[#F6B78D] hover:underline"
-          >
-            Made by Novus
-          </Link>
-        </div>
-        <div>Built with Volta</div>
+    <footer className="site-footer">
+      <div className="footer-top">
+        <a className="brand" href="/" aria-label="Horizon home">
+          <HorizonMark />
+          <span className="brand-type">
+            horizon<span>ACCOUNTING SERVICES</span>
+          </span>
+        </a>
+        <p>
+          Good numbers.
+          <br />A better horizon.
+        </p>
+        <a href="tel:+19046003533" className="footer-call">
+          (904) 600-3533 <Arrow diagonal />
+        </a>
+      </div>
+      <div className="footer-bottom">
+        <span>© {new Date().getFullYear()} Horizon Accounting Services</span>
+        <span>Jacksonville, Florida · Working with you, wherever you are.</span>
+        <a href="/privacy">Privacy policy</a>
       </div>
     </footer>
-  )
+  );
 }
