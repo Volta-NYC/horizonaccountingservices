@@ -13,7 +13,8 @@ export default function HorizonExperience() {
     video = useRef<HTMLVideoElement>(null);
   const [paused, setPaused] = useState(false);
   const [motionAllowed, setMotionAllowed] = useState(false);
-  const [mobileFilm, setMobileFilm] = useState(false);
+  // null until the viewport is known, so phones never start downloading the desktop film.
+  const [mobileFilm, setMobileFilm] = useState<boolean | null>(null);
   const [filmReady, setFilmReady] = useState(false);
   const [filmFailed, setFilmFailed] = useState(false);
   useEffect(() => {
@@ -152,6 +153,28 @@ export default function HorizonExperience() {
       ocean?.destroy();
     };
   }, [paused, motionAllowed, filmFailed]);
+  useEffect(() => {
+    const v = video.current;
+    if (!v) return;
+    // iOS Safari ignores preload and never decodes a frame for a video that has
+    // not played, so loadeddata never fires. A muted play/pause primes the decoder;
+    // Low Power Mode rejects autoplay, so retry on the first touch.
+    let primed = false;
+    const prime = () => {
+      if (primed) return;
+      v.play()
+        .then(() => {
+          primed = true;
+          v.pause();
+          setFilmReady(true);
+          removeEventListener("touchstart", prime);
+        })
+        .catch(() => {});
+    };
+    prime();
+    addEventListener("touchstart", prime, { passive: true });
+    return () => removeEventListener("touchstart", prime);
+  }, [mobileFilm, motionAllowed, filmFailed]);
   return (
     <section
       ref={section}
@@ -169,12 +192,12 @@ export default function HorizonExperience() {
               src="/media/horizon-film-poster.webp"
               alt="A quiet coastal horizon at dawn"
               fetchPriority="high"
-              width="1280"
-              height="720"
+              width="1760"
+              height="990"
             />
           </picture>
           <canvas ref={canvas} className="horizon-canvas" aria-hidden="true" />
-          {film.desktop && motionAllowed && !filmFailed && (
+          {film.desktop && mobileFilm !== null && motionAllowed && !filmFailed && (
             <video
               ref={video}
               className={`hero-video${filmReady ? " is-ready" : ""}`}
@@ -184,6 +207,7 @@ export default function HorizonExperience() {
               src={(mobileFilm ? film.mobile : film.desktop) || film.desktop}
               onLoadStart={() => setFilmReady(false)}
               onLoadedData={() => setFilmReady(true)}
+              onSeeked={() => setFilmReady(true)}
               onError={() => {
                 setFilmReady(false);
                 setFilmFailed(true);
